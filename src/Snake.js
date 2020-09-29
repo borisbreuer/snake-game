@@ -19,14 +19,17 @@ export default class Snake {
   draw() {
     for (let i = 0; i < this.snake.length; i++) {
       let pos = this.snake[i];
-      c.fillStyle = `rgba(${this.color}, ${(this.alpha / this.snake.length) * (i + 2)})`;
+      c.fillStyle = `rgba(0,127,0, ${(0.75 / this.snake.length) * (i + 4)})`;
+      c.lineWidth = 1;
+      c.strokeStyle = `rgba(0,200,0, 1)`;
       c.beginPath();
       c.arc(pos.x + this.r, pos.y + this.r, this.r, 0, Math.PI * 2, false);
+      c.stroke();
       c.fill();
       c.closePath();
     }
 
-    c.fillStyle = `rgba(200,0,0, ${this.alpha})`;
+    c.fillStyle = `rgba(0,255,0, ${this.alpha})`;
     c.beginPath();
     c.arc(this.x + this.r, this.y + this.r, this.r, 0, Math.PI * 2, false);
     c.fill();
@@ -67,12 +70,18 @@ export default class Snake {
     this.bodyLength += 1;
   }
 
-  collisionBorder() {
-    if (this.x - this.r < 0 || this.x + this.r > canvas.width) {
-      this.vel.x *= -1;
+  tailCollision() {
+    for (let i = 0; i < this.snake.length; i++) {
+      if (this.x == this.snake[i].x && this.y == this.snake[i].y && i != this.snake.length - 1)
+        return true;
     }
-    if (this.y - this.r < 0 || this.y + this.r > canvas.height) {
-      this.vel.y *= -1;
+    return false;
+  }
+
+  borderCollision() {
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      return true;
     }
+    return false;
   }
 }
