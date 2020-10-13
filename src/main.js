@@ -6,7 +6,7 @@ canvas.height = 600;
 
 let gameState = "RUN";
 
-let animationID, foodPos, snakePos, snake, score, speed;
+let animationID, foodPos, snakePos, snake, score, speed, scoreMax, scoreDec, scoreMin, scoreInitMax;
 
 let scoreEl = document.querySelector("#scoreEl");
 
@@ -23,18 +23,19 @@ const animate = () => {
       if (snake.x == foodPos.x && snake.y == foodPos.y) {
         foodPos = randomPos();
         snake.addBody();
-        score++;
+        score += scoreMax;
+        scoreMax = scoreInitMax
         scoreEl.textContent = score;
       }
       spawnFood(foodPos);
     }
-
+    
     /* if (score == 2) {
       stopAnimate();
       speed = 100;
       animate();
     } */
-
+    
     if (snake.tailCollision() || snake.borderCollision()) {
       gameState = "STOP";
       gameOver();
@@ -47,6 +48,10 @@ const init = () => {
   stopAnimate();
   gameState = "RUN";
   score = 0;
+  scoreInitMax = 45;
+  scoreMin = 5;
+  scoreDec = 5;
+  scoreMax = scoreInitMax;
   speed = 1000 / 10;
   scoreEl.textContent = score;
   foodPos = randomPos();
@@ -57,7 +62,16 @@ const init = () => {
 
 init();
 
+function decreseScore(){
+  if(scoreMax > scoreMin) scoreMax -= scoreDec;
+}
+
 function direction(e) {
+
+  if(e.key == "ArrowLeft" || e.key == "ArrowUp" || e.key == "ArrowRight" || e.key == "ArrowDown"){
+    decreseScore();
+  }
+
   if (e.key == "ArrowLeft" && snake.dirVal != "RIGHT") {
     snake.dirVal = "LEFT";
   } else if (e.key == "ArrowUp" && snake.dirVal != "DOWN") {
@@ -70,8 +84,8 @@ function direction(e) {
     // snake.dirVal = "STOP";
     gameState = "PAUSE";
   } else if ((e.key == " " || e.key.toLocaleLowerCase() == "p") && gameState == "PAUSE") {
-    animate();
     gameState = "RUN";
+    animate();
   } else if (e.key.toLocaleLowerCase() == "s" && gameState == "STOP") {
     init();
     snake.dirVal = "STOP";
@@ -80,41 +94,35 @@ function direction(e) {
 
 document.addEventListener("keydown", direction, false);
 
-const btnUP = document.getElementById('btn_up');
-btnUP.addEventListener("touchstart", (e) => {
+const fnUP = (e)=>{
   e.preventDefault();
   if(snake.dirVal != "DOWN") snake.dirVal = "UP";
-}, false);
+}
 
-const btnLEFT = document.getElementById('btn_left');
-btnLEFT.addEventListener("touchstart", (e) => {
+const fnLEFT = (e) => {
   e.preventDefault();
   if(snake.dirVal != "RIGHT") snake.dirVal = "LEFT";
-}, false);
+}
 
-const btnDOWN = document.getElementById('btn_down');
-btnDOWN.addEventListener("touchstart", (e) => {
+const fnDOWN = (e) => {
   e.preventDefault();
   if(snake.dirVal != "UP") snake.dirVal = "DOWN";
-}, false);
+}
 
-const btnRIGHT = document.getElementById('btn_right');
-btnRIGHT.addEventListener("touchstart", (e) => {
+const fnRIGHT = (e) => {
   e.preventDefault();
   if(snake.dirVal != "LEFT") snake.dirVal = "RIGHT";
-}, false);
+}
 
-const btnStart = document.getElementById('btn_start');
-btnStart.addEventListener("touchstart", (e) => {
+const fnSTART = (e) => {
   e.preventDefault();
   if (gameState == "STOP") {
     init();
     snake.dirVal = "STOP";
   }
-}, false);
+}
 
-const btnPause = document.getElementById('btn_pause');
-btnPause.addEventListener("touchstart", (e) => {
+const fnPAUSE = (e) => {
   e.preventDefault();
   if (gameState == "RUN") {
     // snake.dirVal = "STOP";
@@ -123,4 +131,28 @@ btnPause.addEventListener("touchstart", (e) => {
     animate();
     gameState = "RUN";
   }
-}, false);
+}
+
+const btnUP = document.getElementById('btn_up');
+btnUP.addEventListener("touchstart", fnUP, false);
+btnUP.addEventListener("mousedown", fnUP, false);
+
+const btnLEFT = document.getElementById('btn_left');
+btnLEFT.addEventListener("touchstart", fnLEFT, false);
+btnLEFT.addEventListener("mousedown", fnLEFT, false);
+
+const btnDOWN = document.getElementById('btn_down');
+btnDOWN.addEventListener("touchstart", fnDOWN, false);
+btnDOWN.addEventListener("mousedown", fnDOWN, false);
+
+const btnRIGHT = document.getElementById('btn_right');
+btnRIGHT.addEventListener("touchstart", fnRIGHT, false);
+btnRIGHT.addEventListener("mousedown", fnRIGHT, false);
+
+const btnStart = document.getElementById('btn_start');
+btnStart.addEventListener("touchstart", fnSTART, false);
+btnStart.addEventListener("mousedown", fnSTART, false);
+
+const btnPause = document.getElementById('btn_pause');
+btnPause.addEventListener("touchstart", fnPAUSE, false);
+btnPause.addEventListener("mousedown", fnPAUSE, false);

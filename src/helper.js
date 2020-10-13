@@ -10,12 +10,12 @@ const log = (...val) => {
 const div = 20;
 let countCol = 0;
 let countRow = 0;
-let font = "normal bold 72px Impact";
+let font = "bold 72px Arial";
 
 const gameOver = () => {
   // Game Over
-  c.save();
-  c.font = font;
+  c.save()
+  c.font = "bold 72px Arial";
   let txt = "Game Over";
   let tWidth = c.measureText(txt).width / 2;
 
@@ -30,12 +30,12 @@ const gameOver = () => {
   c.fillStyle = gradient;
   c.lineWidth = 2;
   c.fillText(txt.toLocaleUpperCase(), canvas.width / 2 - tWidth, canvas.height / 2 + 20);
-  c.restore();
+  c.restore()
 };
 
 const pause = () => {
-  c.save();
-  c.font = font;
+  c.save()
+  c.font = "bold 72px Arial";
   let txt = "Pause ...";
   let tWidth = c.measureText(txt).width / 2;
 
@@ -50,13 +50,13 @@ const pause = () => {
   c.fillStyle = gradient;
   c.lineWidth = 2;
   c.fillText(txt, canvas.width / 2 - tWidth, canvas.height / 2 + 20);
-  c.restore();
+  c.restore()
 };
 
 const bgGrid = () => {
   c.fillStyle = "rgb(200,127,50)";
   c.fillRect(0, 0, canvas.width, canvas.height);
-  let color = "rgba(255,255,255,0.1)";
+  let color = "rgba(200,50,30,0.3)";
   for (let i = 0; i < canvas.width; i++) {
     for (let j = 0; j < canvas.height; j++) {
       if (countCol % 2 == 0 && countRow % 2 == 1) {

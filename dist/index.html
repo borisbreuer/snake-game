@@ -10,14 +10,13 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        /* justify-content: center; */
         align-items: center;
         height: 100vh;
         max-width: 100vw;
         min-width: 600px;
         background-color: black;
         color: rgb(0, 150, 0);
-        font-family: Impact, sans-serif;
+        font-family: Arial, sans-serif;
       }
 
       canvas {
@@ -26,12 +25,20 @@
 
       .nav{
         display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        /* align-items: center;  */
+        align-items: center;
+        justify-content: space-around;
         height:100px;
         width:600px;
-        display: block;
+      }
+
+      .btns{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+        height:100px;
+        width:600px;
       }
 
       h1{
@@ -44,7 +51,7 @@
         padding:35px; 
         font-size:30px;
         line-height:30px;
-        font-family: Arial;
+        font-family: Arial, sans-serif;
       }
 
       .nav button {
@@ -54,20 +61,22 @@
         padding:10px; 
         font-size:30px;
         line-height:30px;
-        font-family: Arial;
+        font-family: Arial, sans-serif;
       }
     </style>
     <script src="./js/main.js" defer></script>
   </head>
   <body>
     <div class="nav">
+      <button id="btn_start">(S)tart</button>
       <h1>Score: <span id="scoreEl">0</span></h1>
       <button id="btn_pause">(P)ause</button>
-      <button id="btn_start">(S)tart</button>
     </div>
     <canvas></canvas>
+    <div class="btns">
       <div><button id="btn_up">▲</button></div>
       <div><button id="btn_left">◄</button><button id="btn_down">▼</button><button id="btn_right">►</button></div>
+    </div>
 
     
 
