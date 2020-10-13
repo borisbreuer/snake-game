@@ -25,14 +25,14 @@ export default class Snake {
       let modulo = i % 2;
       let color = modulo == 0 ? [0, 100, 0] : [0, 150, 0];
       let pos = this.snake[i];
-      c.fillStyle = `rgba(${color}, ${(0.75 / this.snake.length) * (i + 4)})`;
+      c.fillStyle = `rgba(${color},1)`;
       c.lineWidth = 1;
       c.strokeStyle = `rgba(0,200,0, 1)`;
       c.beginPath();
       c.arc(
         pos.x + this.r + this.offset,
         pos.y + this.r + this.offset,
-        this.r,
+        this.r - 2,
         0,
         Math.PI * 2,
         false

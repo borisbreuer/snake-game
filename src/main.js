@@ -47,7 +47,7 @@ const init = () => {
   stopAnimate();
   gameState = "RUN";
   score = 0;
-  speed = 150;
+  speed = 1000 / 10;
   scoreEl.textContent = score;
   foodPos = randomPos();
   snakePos = randomPos();
