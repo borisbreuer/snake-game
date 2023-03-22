@@ -8,6 +8,6 @@ module.exports = {
     filename: "main.js"
   },
   devServer: {
-    contentBase: "./dist"
+    static: "./dist"
   }
 };
